@@ -40,6 +40,9 @@ jobs:
           path: |
             .
             !antenv/
+            
+      - name: Copy requirements.txt to artifact root
+        run: cp solar-system_server_python/requirements.txt ./requirements.txt
 
       # 🚫 Opting Out of Oryx Build
       # If you prefer to disable the Oryx build process during deployment, follow these steps:
@@ -75,4 +78,5 @@ jobs:
           slot-name: 'Production'
 
           
+
 
