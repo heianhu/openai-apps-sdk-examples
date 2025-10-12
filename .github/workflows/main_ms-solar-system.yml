@@ -31,18 +31,26 @@ jobs:
           python -m venv antenv
           source antenv/bin/activate
           pip install -r solar-system_server_python/requirements.txt
-                
-      # By default, when you enable GitHub CI/CD integration through the Azure portal, the platform automatically sets the SCM_DO_BUILD_DURING_DEPLOYMENT application setting to true. This triggers the use of Oryx, a build engine that handles application compilation and dependency installation (e.g., pip install) directly on the platform during deployment. Hence, we exclude the antenv virtual environment directory from the deployment artifact to reduce the payload size. 
+
+      - name: Prepare deployment artifact
+        run: |
+          mkdir deployment
+          cp -r solar-system_server_python/* deployment/
+          cp solar-system_server_python/requirements.txt deployment/
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: |
-            .
-            !antenv/
-            
-      - name: Copy requirements.txt to artifact root
-        run: cp solar-system_server_python/requirements.txt ./requirements.txt
+          path: deployment/
+                
+      # By default, when you enable GitHub CI/CD integration through the Azure portal, the platform automatically sets the SCM_DO_BUILD_DURING_DEPLOYMENT application setting to true. This triggers the use of Oryx, a build engine that handles application compilation and dependency installation (e.g., pip install) directly on the platform during deployment. Hence, we exclude the antenv virtual environment directory from the deployment artifact to reduce the payload size. 
+      # - name: Upload artifact for deployment jobs
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: python-app
+      #     path: |
+      #       .
+      #       !antenv/
 
       # 🚫 Opting Out of Oryx Build
       # If you prefer to disable the Oryx build process during deployment, follow these steps:
@@ -78,5 +86,6 @@ jobs:
           slot-name: 'Production'
 
           
+
 
 
