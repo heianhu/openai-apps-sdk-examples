@@ -305,6 +305,18 @@ try:
 except Exception:
     pass
 
+try:
+    from starlette.staticfiles import StaticFiles
+
+    if ASSETS_DIR.exists():
+        app.mount(
+            "/assets",
+            StaticFiles(directory=str(ASSETS_DIR), html=False),
+            name="assets",
+        )
+except Exception:
+    pass
+
 
 if __name__ == "__main__":
     import uvicorn
