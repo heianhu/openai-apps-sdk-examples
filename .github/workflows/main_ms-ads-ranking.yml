@@ -36,7 +36,7 @@ jobs:
       - name: Build frontend assets
         run: pnpm run build
         env:
-          BASE_URL: https://ms-ads-ranking.azurewebsites.net/assets
+          BASE_URL: /assets
 
       - name: Set up Python version
         uses: actions/setup-python@v5
@@ -90,5 +90,6 @@ jobs:
         with:
           app-name: 'ms-ads-ranking'
           slot-name: 'Production'
+
 
 
