@@ -15,8 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read #This is required for actions/checkout
-    env:
-      BASE_URL: "https://ms-ads-ranking.azurewebsites.net/"
 
     steps:
       - uses: actions/checkout@v4
@@ -37,6 +35,8 @@ jobs:
 
       - name: Build frontend assets
         run: pnpm run build
+        env:
+          BASE_URL: https://ms-ads-ranking.azurewebsites.net/assets
 
       - name: Set up Python version
         uses: actions/setup-python@v5
@@ -90,4 +90,5 @@ jobs:
         with:
           app-name: 'ms-ads-ranking'
           slot-name: 'Production'
+
 
